@@ -8,10 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "faker": "^5.1.0",
     "fomantic-ui-css": "^2.8.7",
     "next": "9.5.3",
+    "random-int": "^2.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-unsplash-wrapper": "^1.1.5",
     "semantic-ui-react": "^2.0.0"
   },
   "devDependencies": {
