@@ -2,7 +2,7 @@ import faker from "faker";
 import Head from "next/head";
 import randomInt from "random-int";
 import React from "react";
-import { Container, Sidebar } from "semantic-ui-react";
+import { Container, Header, Sidebar } from "semantic-ui-react";
 import AppSidebar from "../components/AppSidebar";
 import { Message, MessageList } from "./MessageList";
 
@@ -21,6 +21,7 @@ export default function Index({ channels, directMessages }: AppProps) {
       <AppSidebar channels={channels} directMessages={directMessages} />
       <Sidebar.Pusher>
         <Container>
+          <Header as="h1">view header</Header>
           <MessageList messages={messages} />
         </Container>
       </Sidebar.Pusher>
