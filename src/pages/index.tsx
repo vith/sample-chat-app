@@ -45,7 +45,7 @@ function generateRandomMessages(): Message[] {
 
     const username = f.internet.userName();
     const avatarUrl = f.internet.avatar();
-    const content = f.lorem.sentence();
+    const content = f.lorem.sentences();
     const timestamp = f.date.recent(1);
 
     return { username, avatarUrl, content, timestamp };
