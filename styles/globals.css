@@ -1,3 +1,7 @@
 .ui.feed > .event > .content .extra.text {
-  max-width: 90ch;
+  max-width: 110ch;
+}
+
+.ui.feed > .event.active {
+  background-color: hsl(0, 0%, 71%);
 }

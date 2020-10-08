@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 
 // from https://usehooks.com/useHover/
 
@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 // }
 
 // Hook
-export function useHover() {
+export function useHover<T>(): [MutableRefObject<T>, boolean] {
   const [value, setValue] = useState(false);
 
   const ref = useRef(null);

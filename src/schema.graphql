@@ -1,0 +1,27 @@
+type Query {
+  conversations: [Conversation]
+  conversationBySlug(slug: String!): Conversation
+}
+
+type User {
+  id: String!
+  username: String!
+  avatarURL: String
+  conversations: [Conversation]
+}
+
+type Conversation {
+  id: String!
+  type: String!
+  name: String!
+  slug: String!
+  members: [User]
+  messages: [Message]
+}
+
+type Message {
+  id: String!
+  author: User!
+  content: String!
+  timestamp: Int!
+}
