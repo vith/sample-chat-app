@@ -1,13 +1,27 @@
 import React from "react";
-import { useHoverIntent } from "react-use-hoverintent";
+// import { useHoverIntent } from "react-use-hoverintent";
 import { Button, Feed, Ref, Transition } from "semantic-ui-react";
+import { useHover } from "../util/useHover";
 
-export function Message({ message }) {
-  const [isHovering, hoverTarget] = useHoverIntent({});
+export type MessageRecord = {
+  id: string;
+  avatarUrl: string;
+  username: string;
+  timestamp: Date;
+  content: string;
+};
+
+export type MessageProps = {
+  message: MessageRecord;
+};
+
+export function Message({ message }: MessageProps) {
+  //   const [isHovering, hoverTarget] = useHoverIntent({});
+  const [hoverRef, isHovered] = useHover();
 
   return (
     // @ts-expect-error
-    <Ref innerRef={hoverTarget}>
+    <Ref innerRef={hoverRef}>
       <Feed.Event>
         <Feed.Label image={message.avatarUrl} />
         <Feed.Content>
@@ -17,7 +31,7 @@ export function Message({ message }) {
           </Feed.Summary>
           <Feed.Extra text>{message.content}</Feed.Extra>
           {/* @ts-expect-error */}
-          <Transition visible={isHovering} animation="fade" duration={100}>
+          <Transition visible={isHovered} animation="fade" duration={100}>
             <Feed.Meta>
               <Button.Group size="tiny">
                 <Button icon="edit" content="Edit" className="tertiary" />

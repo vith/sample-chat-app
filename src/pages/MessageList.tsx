@@ -1,23 +1,16 @@
 import React from "react";
 import { Feed } from "semantic-ui-react";
-import { Message } from "./Message";
-
-export type Message = {
-  avatarUrl: string;
-  username: string;
-  timestamp: Date;
-  content: string;
-};
+import { Message, MessageRecord } from "./Message";
 
 export type MessageListProps = {
-  messages: Message[];
+  messages: MessageRecord[];
 };
 
 export function MessageList({ messages }: MessageListProps) {
   return (
     <Feed>
       {messages.map((m) => (
-        <Message message={m} />
+        <Message message={m} key={m.id} />
       ))}
     </Feed>
   );

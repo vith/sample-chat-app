@@ -4,7 +4,8 @@ import randomInt from "random-int";
 import React from "react";
 import { Container, Header, Sidebar } from "semantic-ui-react";
 import AppSidebar from "../components/AppSidebar";
-import { Message, MessageList } from "./MessageList";
+import { MessageRecord } from "./Message";
+import { MessageList } from "./MessageList";
 
 type AppProps = {
   channels: string[];
@@ -38,18 +39,19 @@ export async function getStaticProps(context) {
   };
 }
 
-function generateRandomMessages(): Message[] {
+function generateRandomMessages(): MessageRecord[] {
   const amount = randomInt(3, 7);
 
   const messages = new Array(amount).fill(null).map(() => {
     const f = faker;
 
+    const id = f.random.uuid();
     const username = f.internet.userName();
     const avatarUrl = f.internet.avatar();
     const content = f.lorem.sentences();
     const timestamp = f.date.recent(1);
 
-    return { username, avatarUrl, content, timestamp };
+    return { id, username, avatarUrl, content, timestamp };
   });
 
   return messages;
