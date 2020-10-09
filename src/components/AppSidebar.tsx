@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Menu, Placeholder, Sidebar } from "semantic-ui-react";
+import React from "react";
+import { Button, Icon, Menu, Placeholder, Sidebar } from "semantic-ui-react";
 import {
   ConversationList,
   CONVERSATION_LIST,
@@ -40,6 +41,20 @@ export default function AppSidebar() {
             <Link href="/">ChatApp</Link>
           </h1>
         </div>
+      </Menu.Item>
+      <Menu.Item>
+        <Button animated="vertical">
+          <Button.Content hidden>Add</Button.Content>
+          <Button.Content visible>
+            <Icon name="add" />
+          </Button.Content>
+        </Button>
+        <Button animated="vertical">
+          <Button.Content hidden>Remove</Button.Content>
+          <Button.Content visible>
+            <Icon name="remove" />
+          </Button.Content>
+        </Button>
       </Menu.Item>
       <Menu.Item>
         <Menu.Header>Channels</Menu.Header>
