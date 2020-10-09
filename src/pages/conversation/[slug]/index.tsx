@@ -1,10 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React from "react";
-import { Header, Placeholder } from "semantic-ui-react";
+import { Placeholder } from "semantic-ui-react";
 import { MessageList } from "../../../components/MessageList";
 
-const CONVERSATION = gql`
+export const CONVERSATION = gql`
   query GetConversation($slug: String!) {
     conversationBySlug(slug: $slug) {
       id
@@ -39,10 +39,5 @@ export default function Conversation() {
     return <p>No such conversation</p>; // BUG: should be error
   }
 
-  return (
-    <>
-      <Header as="h1">{conversation.name}</Header>
-      {<MessageList />}
-    </>
-  );
+  return <MessageList />;
 }

@@ -1,7 +1,50 @@
 .ui.feed > .event > .content .extra.text {
-  max-width: 110ch;
+  max-width: 90ch;
 }
 
 .ui.feed > .event.active {
   background-color: hsl(0, 0%, 71%);
+}
+
+.app-container {
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar input";
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 3em 1fr 60px;
+  height: 100vh;
+}
+
+.app-menu {
+  grid-area: sidebar;
+}
+
+.app-header {
+  grid-area: header;
+  border-bottom: 1px solid hsl(0, 0%, 71%);
+}
+
+.app-main {
+  grid-area: main;
+  overflow: auto;
+}
+
+.app-header,
+.app-main,
+.app-input {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.app-header,
+.app-input {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.app-input {
+  grid-area: input;
+  border-top: 1px solid hsl(0, 0%, 75%);
 }

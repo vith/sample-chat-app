@@ -21,7 +21,7 @@ export type MessageProps = {
 
 export function Message({ message }: MessageProps) {
   //   const [isHovering, hoverTarget] = useHoverIntent({});
-  const [hoverRef, isHovered] = useHover();
+  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const router = useRouter();
   const { slug, messageID } = router.query;
 
@@ -39,7 +39,6 @@ export function Message({ message }: MessageProps) {
   }, [messageID]);
 
   return (
-    // @ts-expect-error
     <Ref innerRef={hoverRef}>
       <Feed.Event
         id={message.id}
