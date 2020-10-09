@@ -48,3 +48,11 @@
   grid-area: input;
   border-top: 1px solid hsl(0, 0%, 75%);
 }
+
+.logo {
+  height: 64px;
+  background-color: hsl(165, 21%, 89%);
+  border-radius: 1em;
+  display: grid;
+  place-items: center;
+}

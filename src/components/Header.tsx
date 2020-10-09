@@ -1,14 +1,17 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React from "react";
-import { Loader } from "semantic-ui-react";
-import { MessageList } from "../../../components/MessageList";
+import { Header, Loader } from "semantic-ui-react";
 import {
   ConversationMetadata,
   CONVERSATION_METADATA,
-} from "../../../queries/CONVERSATION_METADATA";
+} from "../queries/CONVERSATION_METADATA";
 
-export default function Conversation() {
+export function ConversationHeader() {
+  return <Header as="h2">{getHeaderText()}</Header>;
+}
+
+function getHeaderText() {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -16,18 +19,17 @@ export default function Conversation() {
     CONVERSATION_METADATA,
     {
       variables: { slug },
+      skip: !slug,
     }
   );
 
   if (loading) return <Loader />;
-
-  if (error) return <p>Error</p>;
+  if (error) return;
+  if (!data) return;
 
   const conversation = data.conversationBySlug;
 
-  if (!conversation) {
-    return <p>No such conversation</p>; // BUG: should be error
-  }
+  if (!conversation) return;
 
-  return <MessageList />;
+  return conversation.name;
 }

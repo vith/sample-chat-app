@@ -1,43 +1,25 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React from "react";
 import { Feed, Placeholder } from "semantic-ui-react";
-import { Message, MessageRecord } from "./Message";
+import {
+  ConversationData,
+  CONVERSATION_DATA,
+} from "../queries/CONVERSATION_DATA";
+import { Message } from "./Message";
 
-const CONVERSATIONS = gql`
-  query GetConversationData($slug: String!) {
-    conversationBySlug(slug: $slug) {
-      id
-      name
-      type
-      # members
-      messages {
-        id
-        author {
-          id
-          username
-          avatarURL
-        }
-        content
-        timestamp
-      }
-    }
-  }
-`;
-
-export type MessageListProps = {
-  messages: MessageRecord[];
-};
-
-export function MessageList(/* { messages }: MessageListProps */) {
+export function MessageList() {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { loading, error, data } = useQuery(CONVERSATIONS, {
-    variables: {
-      slug,
-    },
-  });
+  const { loading, error, data } = useQuery<ConversationData>(
+    CONVERSATION_DATA,
+    {
+      variables: {
+        slug,
+      },
+    }
+  );
 
   if (loading) return <Placeholder />;
   if (error)

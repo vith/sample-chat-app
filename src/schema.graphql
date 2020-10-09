@@ -4,14 +4,14 @@ type Query {
 }
 
 type User {
-  id: String!
+  id: ID!
   username: String!
   avatarURL: String
   conversations: [Conversation]
 }
 
 type Conversation {
-  id: String!
+  id: ID!
   type: String!
   name: String!
   slug: String!
@@ -20,7 +20,7 @@ type Conversation {
 }
 
 type Message {
-  id: String!
+  id: ID!
   author: User!
   content: String!
   timestamp: Int!

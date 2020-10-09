@@ -1,27 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-// import { useHoverIntent } from "react-use-hoverintent";
 import { Button, Feed, Ref } from "semantic-ui-react";
-import { useHover } from "../util/useHover";
-
-export type MessageRecord = {
-  id: string;
-  author: {
-    avatarURL: string;
-    username: string;
-  };
-  timestamp: number;
-  content: string;
-};
+import { MessageRecord } from "../entities/MessageRecord";
+import { useHover } from "../util/hooks/useHover";
 
 export type MessageProps = {
   message: MessageRecord;
 };
 
 export function Message({ message }: MessageProps) {
-  //   const [isHovering, hoverTarget] = useHoverIntent({});
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+
   const router = useRouter();
   const { slug, messageID } = router.query;
 
@@ -32,7 +22,6 @@ export function Message({ message }: MessageProps) {
         hoverRef.current.scrollIntoView({
           behavior: "smooth",
           block: "center",
-          // inline: "end",
         });
       }
     });
@@ -53,12 +42,6 @@ export function Message({ message }: MessageProps) {
                 {new Date(message.timestamp * 1000).toLocaleString()}
               </Link>
             </Feed.Date>
-            {/*             <Transition
-              visible={isHovered}
-              animation="fade"
-              duration={100}
-              style={{ display: "inline-block" }}
-            > */}
             <Button.Group
               size="tiny"
               style={{ marginLeft: "14px", opacity: isHovered ? 1 : 0 }}
@@ -66,8 +49,6 @@ export function Message({ message }: MessageProps) {
               <Button icon="edit" content="Edit" className="tertiary" />
               <Button icon="remove" content="Remove" className="tertiary" />
             </Button.Group>
-            {/* <Feed.Meta></Feed.Meta> */}
-            {/* </Transition> */}
           </Feed.Summary>
           <Feed.Extra text>{message.content}</Feed.Extra>
         </Feed.Content>

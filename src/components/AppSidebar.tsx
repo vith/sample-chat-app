@@ -1,30 +1,17 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Menu, Placeholder, Sidebar } from "semantic-ui-react";
+import {
+  ConversationList,
+  CONVERSATION_LIST,
+} from "../queries/CONVERSATION_LIST";
 
-const CONVERSATIONS = gql`
-  query GetConversationList {
-    conversations {
-      id
-      name
-      slug
-      type
-    }
-  }
-`;
-
-/* type AppSidebarProps = {
-  channels: string[];
-  directMessages: string[];
-}; */
-
-export default function AppSidebar(/* {
-  channels,
-  directMessages,
-}: AppSidebarProps */) {
+export default function AppSidebar() {
   const router = useRouter();
-  const { loading, error, data } = useQuery(CONVERSATIONS);
+  const { loading, error, data } = useQuery<ConversationList>(
+    CONVERSATION_LIST
+  );
 
   if (loading) return <Placeholder />;
   if (error) return <p>Error</p>;
@@ -36,20 +23,24 @@ export default function AppSidebar(/* {
   const groupConversations = conversations.filter((c) => c.type === "group");
   const dmConversations = conversations.filter((c) => c.type === "dm");
 
-  const channelComponents = groupConversations.map((conv) => (
+  const renderConversation = (conv) => (
     <Menu.Item key={conv.id} active={conv.slug === slug}>
       <Link href={`/conversation/${conv.slug}`}>{conv.name}</Link>
     </Menu.Item>
-  ));
+  );
 
-  const dmComponents = dmConversations.map((dm) => (
-    <Menu.Item key={dm.id}>
-      <Link href={`/conversation/${dm.slug}`}>{dm.name}</Link>
-    </Menu.Item>
-  ));
+  const channelComponents = groupConversations.map(renderConversation);
+  const dmComponents = dmConversations.map(renderConversation);
 
   return (
     <Sidebar as={Menu} visible vertical animation="push">
+      <Menu.Item>
+        <div className="logo">
+          <h1>
+            <Link href="/">ChatApp</Link>
+          </h1>
+        </div>
+      </Menu.Item>
       <Menu.Item>
         <Menu.Header>Channels</Menu.Header>
         <Menu.Menu>{channelComponents}</Menu.Menu>
